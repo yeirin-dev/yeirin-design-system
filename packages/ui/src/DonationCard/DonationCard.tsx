@@ -155,7 +155,7 @@ export const DonationCard: React.FC<DonationCardProps> = ({
     color: urgent ? colors.secondary[700] : colors.primary[700],
     borderRadius: borderRadius.md,
     fontSize: fontSize.sm,
-    fontWeight: fontWeight.medium,
+    fontWeight: fontWeight.semibold,
     marginBottom: spacing[3],
   };
 
