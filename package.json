@@ -1,0 +1,23 @@
+{
+  "name": "yeirin-design-system",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Yeirin Design System - Internal component library",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo run build --filter='@yeirin/*' && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.11",
+    "turbo": "^2.6.1"
+  },
+  "packageManager": "pnpm@10.21.0",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
