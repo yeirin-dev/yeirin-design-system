@@ -45,9 +45,9 @@ const variantStyles: Record<NonNullable<StatsCardProps['variant']>, VariantStyle
     trendDown: colors.error[700],
   },
   accent: {
-    background: colors.accent[50],
-    iconColor: colors.accent[600],
-    valueColor: colors.accent[900],
+    background: colors.info[50],
+    iconColor: colors.info[500],
+    valueColor: colors.info[900],
     trendUp: colors.success[700],
     trendDown: colors.error[700],
   },
@@ -112,7 +112,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
   const labelStyle: React.CSSProperties = {
     fontSize: sizeStyle.labelSize,
     color: colors.gray[600],
-    fontWeight: fontWeight.medium,
+    fontWeight: fontWeight.semibold,
     lineHeight: 1.4,
   };
 

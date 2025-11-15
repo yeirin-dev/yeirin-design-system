@@ -30,8 +30,8 @@ const sizeStyles = {
 
 const variantColors = {
   primary: {
-    background: colors.primary[500],
-    gradient: `linear-gradient(90deg, ${colors.primary[400]} 0%, ${colors.primary[600]} 100%)`,
+    background: colors.primary[300],
+    gradient: `linear-gradient(90deg, ${colors.primary[200]} 0%, ${colors.primary[400]} 100%)`,
   },
   success: {
     background: colors.success[500],
@@ -39,11 +39,11 @@ const variantColors = {
   },
   warm: {
     background: colors.secondary[500],
-    gradient: `linear-gradient(90deg, ${colors.secondary[400]} 0%, ${colors.accent[500]} 100%)`,
+    gradient: `linear-gradient(90deg, ${colors.secondary[400]} 0%, ${colors.secondary[600]} 100%)`,
   },
   gradient: {
-    background: colors.primary[500],
-    gradient: `linear-gradient(90deg, ${colors.primary[500]} 0%, ${colors.secondary[500]} 50%, ${colors.accent[500]} 100%)`,
+    background: colors.primary[300],
+    gradient: `linear-gradient(90deg, ${colors.primary[300]} 0%, ${colors.secondary[500]} 50%, ${colors.accent.purple} 100%)`,
   },
 };
 
@@ -76,7 +76,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
 
   const labelStyle: React.CSSProperties = {
     fontSize: sizeStyle.fontSize,
-    fontWeight: fontWeight.medium,
+    fontWeight: fontWeight.semibold,
     color: colors.gray[700],
   };
 

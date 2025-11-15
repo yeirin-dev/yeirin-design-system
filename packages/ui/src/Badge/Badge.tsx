@@ -93,7 +93,7 @@ export const Badge: React.FC<BadgeProps> = ({
     border: `1px solid ${outline ? variantStyle.border : 'transparent'}`,
     borderRadius: borderRadius.full,
     fontSize: sizeStyle.fontSize,
-    fontWeight: fontWeight.medium,
+    fontWeight: fontWeight.semibold,
     lineHeight: 1,
     whiteSpace: 'nowrap',
     ...style,
