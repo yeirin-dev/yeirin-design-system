@@ -32,12 +32,12 @@ export const DonationCard: React.FC<DonationCardProps> = ({
 }) => {
   const cardStyle: React.CSSProperties = {
     backgroundColor: colors.white,
-    border: `2px solid ${urgent ? colors.accent[300] : colors.primary[200]}`,
+    border: `2px solid ${urgent ? colors.secondary[300] : colors.primary[200]}`,
     borderRadius: borderRadius.xl,
     overflow: 'hidden',
     boxShadow: urgent
-      ? '0 8px 16px rgba(213, 64, 56, 0.15)'
-      : '0 4px 12px rgba(250, 190, 0, 0.15)',
+      ? '0 8px 16px rgba(255, 99, 0, 0.15)'
+      : '0 4px 12px rgba(255, 166, 0, 0.15)',
     transition: 'all 0.3s ease',
     ...style,
   };
@@ -57,13 +57,13 @@ export const DonationCard: React.FC<DonationCardProps> = ({
     position: 'absolute',
     top: spacing[4],
     right: spacing[4],
-    backgroundColor: colors.accent[500],
+    backgroundColor: colors.secondary[500],
     color: colors.white,
     padding: `${spacing[2]} ${spacing[3]}`,
     borderRadius: borderRadius.full,
     fontSize: fontSize.sm,
     fontWeight: fontWeight.bold,
-    boxShadow: '0 2px 8px rgba(213, 64, 56, 0.3)',
+    boxShadow: '0 2px 8px rgba(255, 99, 0, 0.3)',
   };
 
   const titleStyle: React.CSSProperties = {
@@ -94,7 +94,7 @@ export const DonationCard: React.FC<DonationCardProps> = ({
 
   const progressBarFillStyle: React.CSSProperties = {
     height: '100%',
-    backgroundColor: urgent ? colors.accent[500] : colors.primary[500],
+    backgroundColor: urgent ? colors.secondary[500] : colors.primary[300],
     borderRadius: borderRadius.full,
     transition: 'width 0.5s ease',
     width: `${Math.min(progress || 0, 100)}%`,
@@ -120,7 +120,7 @@ export const DonationCard: React.FC<DonationCardProps> = ({
   const statValueStyle: React.CSSProperties = {
     fontSize: fontSize.lg,
     fontWeight: fontWeight.bold,
-    color: urgent ? colors.accent[600] : colors.primary[600],
+    color: urgent ? colors.secondary[600] : colors.primary[600],
   };
 
   const benefitsStyle: React.CSSProperties = {
@@ -135,8 +135,8 @@ export const DonationCard: React.FC<DonationCardProps> = ({
   const buttonStyle: React.CSSProperties = {
     width: '100%',
     padding: `${spacing[4]} ${spacing[6]}`,
-    backgroundColor: urgent ? colors.accent[500] : colors.primary[500],
-    color: urgent ? colors.white : colors.gray[900],
+    backgroundColor: urgent ? colors.secondary[500] : colors.primary[300],
+    color: colors.white,
     border: 'none',
     borderRadius: borderRadius.lg,
     fontSize: fontSize.base,
@@ -151,8 +151,8 @@ export const DonationCard: React.FC<DonationCardProps> = ({
     alignItems: 'center',
     gap: spacing[1],
     padding: `${spacing[1]} ${spacing[3]}`,
-    backgroundColor: urgent ? colors.accent[50] : colors.primary[50],
-    color: urgent ? colors.accent[700] : colors.primary[700],
+    backgroundColor: urgent ? colors.secondary[100] : colors.primary[50],
+    color: urgent ? colors.secondary[700] : colors.primary[700],
     borderRadius: borderRadius.md,
     fontSize: fontSize.sm,
     fontWeight: fontWeight.medium,
@@ -165,14 +165,14 @@ export const DonationCard: React.FC<DonationCardProps> = ({
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = 'translateY(-4px)';
         e.currentTarget.style.boxShadow = urgent
-          ? '0 12px 24px rgba(213, 64, 56, 0.2)'
-          : '0 8px 20px rgba(250, 190, 0, 0.2)';
+          ? '0 12px 24px rgba(255, 99, 0, 0.2)'
+          : '0 8px 20px rgba(255, 166, 0, 0.2)';
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = 'translateY(0)';
         e.currentTarget.style.boxShadow = urgent
-          ? '0 8px 16px rgba(213, 64, 56, 0.15)'
-          : '0 4px 12px rgba(250, 190, 0, 0.15)';
+          ? '0 8px 16px rgba(255, 99, 0, 0.15)'
+          : '0 4px 12px rgba(255, 166, 0, 0.15)';
       }}
     >
       {imageUrl && (
@@ -238,15 +238,15 @@ export const DonationCard: React.FC<DonationCardProps> = ({
             onClick={onDonate}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = urgent
-                ? colors.accent[600]
-                : colors.primary[600];
+                ? colors.secondary[600]
+                : colors.primary[400];
               e.currentTarget.style.transform = 'translateY(-2px)';
               e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.backgroundColor = urgent
-                ? colors.accent[500]
-                : colors.primary[500];
+                ? colors.secondary[500]
+                : colors.primary[300];
               e.currentTarget.style.transform = 'translateY(0)';
               e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
             }}
