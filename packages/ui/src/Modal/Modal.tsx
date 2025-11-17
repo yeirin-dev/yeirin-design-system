@@ -58,19 +58,19 @@ export const Modal: React.FC<ModalProps> = ({
 
   const sizeStyles = {
     sm: {
-      width: '328px',
-      padding: spacing[6],
-      borderRadius: borderRadius['2xl'],
+      width: '328px', // Soul: admin modal
+      padding: spacing[6], // Soul: 3rem = 24px
+      borderRadius: borderRadius['4xl'], // Soul: 2rem = 32px
     },
     md: {
-      width: '480px',
-      padding: spacing[8],
-      borderRadius: borderRadius['4xl'],
+      width: '480px', // Soul: default modal
+      padding: spacing[8], // Soul: 4rem = 32px
+      borderRadius: spacing[16], // Soul: 4rem = 64px
     },
     lg: {
       width: '640px',
       padding: spacing[10],
-      borderRadius: '4rem',
+      borderRadius: spacing[16], // 4rem
     },
   };
 
@@ -95,6 +95,7 @@ export const Modal: React.FC<ModalProps> = ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    gap: spacing[8], // Soul: 4rem = 32px gap between elements
     width: sizeStyles[size].width,
     padding: sizeStyles[size].padding,
     borderRadius: sizeStyles[size].borderRadius,
@@ -106,7 +107,6 @@ export const Modal: React.FC<ModalProps> = ({
 
   const headerStyle: React.CSSProperties = {
     width: '100%',
-    marginBottom: spacing[4],
   };
 
   const titleStyle: React.CSSProperties = {
@@ -120,12 +120,11 @@ export const Modal: React.FC<ModalProps> = ({
   const bodyStyle: React.CSSProperties = {
     width: '100%',
     flex: 1,
-    marginBottom: footer ? spacing[6] : 0,
   };
 
   const contentTextStyle: React.CSSProperties = {
-    fontSize: fontSize.lg,
-    fontWeight: fontWeight.regular,
+    fontSize: '4.5rem', // Soul: pb(36) = 36px (36px / 8px base = 4.5rem)
+    fontWeight: fontWeight.bold, // Soul: pb (Pretendard Bold)
     color: colors.gray[700],
     textAlign: 'center',
     lineHeight: 1.6,
@@ -134,7 +133,7 @@ export const Modal: React.FC<ModalProps> = ({
   const footerStyle: React.CSSProperties = {
     width: '100%',
     display: 'flex',
-    gap: spacing[4],
+    gap: spacing[6], // Soul: 2rem = 16px gap between buttons
     justifyContent: 'center',
   };
 

@@ -15,16 +15,16 @@ export interface ProgressBarProps {
 
 const sizeStyles = {
   sm: {
-    height: '8px',
-    fontSize: fontSize.xs,
+    height: spacing[4], // 16px
+    fontSize: fontSize.base,
   },
   md: {
-    height: '12px',
-    fontSize: fontSize.sm,
+    height: spacing[8], // 32px (Soul: 4rem)
+    fontSize: fontSize.lg,
   },
   lg: {
-    height: '16px',
-    fontSize: fontSize.base,
+    height: spacing[12], // 48px
+    fontSize: fontSize.xl,
   },
 };
 
@@ -89,8 +89,8 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
   const trackStyle: React.CSSProperties = {
     width: '100%',
     height: sizeStyle.height,
-    backgroundColor: colors.gray[100],
-    borderRadius: borderRadius.full,
+    backgroundColor: colors.gray[100], // Soul: gray100
+    borderRadius: borderRadius.full, // Soul: 4rem (full circle)
     overflow: 'hidden',
     position: 'relative',
   };
@@ -99,8 +99,8 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
     height: '100%',
     width: `${percentage}%`,
     background: variant === 'gradient' || variant === 'warm' ? colorStyle.gradient : colorStyle.background,
-    borderRadius: borderRadius.full,
-    transition: animated ? 'width 0.8s ease-in-out' : 'width 0.3s ease',
+    borderRadius: borderRadius.full, // Soul: 4rem (full circle)
+    transition: animated ? 'width 0.8s ease-in-out' : 'width 0.3s ease', // Soul: 0.3s ease
     position: 'relative',
     overflow: 'hidden',
   };

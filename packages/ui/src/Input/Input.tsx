@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { colors, spacing, fontSize, fontWeight, borderRadius, transitions } from '@yeirin/tokens';
+import { colors, spacing, fontSize, fontWeight, borderRadius, transitions, fontFamily } from '@yeirin/tokens';
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -14,23 +14,27 @@ interface SizeStyle {
   height: string;
   padding: string;
   fontSize: string;
+  fontWeight: string;
 }
 
 const sizeStyles: Record<NonNullable<InputProps['inputSize']>, SizeStyle> = {
   sm: {
-    height: '40px',
-    padding: `0 ${spacing[3]}`,
-    fontSize: fontSize.base, // 14px
+    height: '64px',
+    padding: `0 ${spacing[6]}`, // 0 24px
+    fontSize: fontSize['2xl'], // 24px
+    fontWeight: fontWeight.bold,
   },
   md: {
-    height: '48px',
-    padding: `0 ${spacing[4]}`,
-    fontSize: fontSize.md, // 16px
+    height: '80px', // Soul InputField 기본 높이
+    padding: `0 ${spacing[8]}`, // 0 32px (Soul: 4rem)
+    fontSize: fontSize['3xl'], // 28px (Soul: pb(28))
+    fontWeight: fontWeight.bold,
   },
   lg: {
-    height: '56px',
-    padding: `0 ${spacing[5]}`,
-    fontSize: fontSize.lg, // 18px
+    height: '96px',
+    padding: `0 ${spacing[10]}`, // 0 40px
+    fontSize: fontSize['4xl'], // 36px
+    fontWeight: fontWeight.bold,
   },
 };
 
@@ -63,16 +67,15 @@ export const Input: React.FC<InputProps> = ({
     width: '100%',
     height: sizeStyle.height,
     padding: sizeStyle.padding,
-    borderRadius: borderRadius['2xl'], // Soul: 1rem
-    border: `1px solid ${
-      hasError
-        ? colors.secondary[500]
-        : isFocused
-        ? colors.primary[300]
-        : colors.gray[200]
-    }`,
-    backgroundColor: readOnly ? colors.gray[100] : colors.white,
-    transition: transitions.colors,
+    borderRadius: borderRadius['4xl'], // Soul: 2rem (32px)
+    border: 'none', // Soul: border 없음
+    backgroundColor: readOnly
+      ? colors.gray[100]
+      : isFocused
+      ? colors.primary[50] // Soul: focus시 main400
+      : colors.white,
+    boxShadow: '0px 0px 8px 0px rgba(0, 0, 0, 0.02)', // Soul: subtle shadow
+    transition: `background-color ${transitions.base}, box-shadow ${transitions.base}`, // Soul: 0.2s ease
   };
 
   const inputStyle: React.CSSProperties = {
@@ -82,7 +85,8 @@ export const Input: React.FC<InputProps> = ({
     outline: 'none',
     backgroundColor: 'transparent',
     fontSize: sizeStyle.fontSize,
-    fontWeight: fontWeight.regular,
+    fontWeight: sizeStyle.fontWeight, // Soul: pb (Pretendard Bold)
+    fontFamily: fontFamily.sans, // Pretendard
     color: hasError ? colors.secondary[500] : colors.gray[700],
     verticalAlign: 'middle',
     transition: transitions.colors,
@@ -90,38 +94,49 @@ export const Input: React.FC<InputProps> = ({
   };
 
   const labelStyle: React.CSSProperties = {
-    display: 'block',
-    marginBottom: spacing[2],
-    fontSize: fontSize.sm,
-    fontWeight: fontWeight.semibold,
-    color: colors.gray[700],
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: spacing[4], // Soul: 2rem gap
+    fontSize: fontSize.xl, // Soul: pr(20) = 20px
+    fontWeight: fontWeight.regular,
+    color: colors.gray[500], // Soul: gray600
   };
 
   const errorStyle: React.CSSProperties = {
-    marginTop: spacing[1],
-    fontSize: fontSize.sm,
-    color: colors.secondary[500],
+    marginTop: 0,
+    fontSize: fontSize.xl, // Soul: pr(20) = 20px
+    fontWeight: fontWeight.regular,
+    color: colors.secondary[500], // Soul: sub100
   };
 
   const helperStyle: React.CSSProperties = {
     marginTop: spacing[1],
-    fontSize: fontSize.sm,
+    fontSize: fontSize.base, // 14px
     color: colors.gray[400],
   };
 
   const placeholderStyle = `
     ::placeholder {
-      color: ${colors.gray[300]};
-      transition: ${transitions.colors};
+      color: ${colors.gray[300]}; // Soul: gray400
+      transition: color ${transitions.base};
     }
-    :focus::selection {
-      background-color: ${colors.primary[100]};
+    :focus::placeholder {
+      color: ${colors.primary[100]}; // Soul: main300 when focused
+    }
+    ::selection {
+      background-color: ${colors.primary[200]}; // Soul: main200
     }
   `;
 
   return (
     <div style={containerStyle}>
-      {label && <label style={labelStyle}>{label}</label>}
+      {(label || error) && (
+        <div style={labelStyle}>
+          {label && <span>{label}</span>}
+          {error && <span style={errorStyle}>{error}</span>}
+        </div>
+      )}
       <div style={inputContainerStyle}>
         <input
           style={inputStyle}
@@ -129,12 +144,13 @@ export const Input: React.FC<InputProps> = ({
           readOnly={readOnly}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
+          spellCheck={false}
+          autoComplete="off"
           {...props}
         />
         {endIcon && <div style={{ flexShrink: 0 }}>{endIcon}</div>}
       </div>
       <style>{placeholderStyle}</style>
-      {error && <div style={errorStyle}>{error}</div>}
       {!error && helperText && <div style={helperStyle}>{helperText}</div>}
     </div>
   );

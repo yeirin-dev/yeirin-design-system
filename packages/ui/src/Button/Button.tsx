@@ -1,8 +1,8 @@
 import React from 'react';
-import { colors, spacing, fontSize, fontWeight, borderRadius, transitions } from '@yeirin/tokens';
+import { colors, spacing, fontSize, fontWeight, borderRadius, transitions, fontFamily } from '@yeirin/tokens';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'gray' | 'delete';
+  variant?: 'primary' | 'secondary' | 'outline' | 'gray' | 'sub';
   size?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
   loading?: boolean;
@@ -28,37 +28,38 @@ interface SizeStyle {
   padding: string;
   fontSize: string;
   fontWeight: string;
+  fontFamily: string;
 }
 
 const variantStyles: Record<NonNullable<ButtonProps['variant']>, VariantStyle> = {
   primary: {
-    backgroundColor: colors.primary[300], // Soul main100 - 메인 브랜드 컬러
+    backgroundColor: colors.primary[300], // Soul main100 (#ffa600)
     color: colors.white,
     border: 'none',
     hover: {
       backgroundColor: colors.primary[400],
     },
     disabled: {
-      backgroundColor: colors.gray[300],
+      backgroundColor: colors.gray[300], // Soul gray400
     },
   },
   secondary: {
-    backgroundColor: colors.primary[50], // Soul main400 - 서브 버튼
+    backgroundColor: colors.primary[50], // Soul main400 - 연한 노랑
     color: colors.primary[300],
-    border: `1px solid ${colors.primary[300]}`,
+    border: `2px solid ${colors.primary[300]}`,
     hover: {
       backgroundColor: colors.primary[100],
       borderColor: colors.primary[400],
     },
     disabled: {
-      backgroundColor: colors.gray[200],
+      backgroundColor: colors.gray[100],
       color: colors.gray[400],
     },
   },
   outline: {
     backgroundColor: 'transparent',
     color: colors.primary[300],
-    border: `1px solid ${colors.primary[300]}`,
+    border: `2px solid ${colors.primary[300]}`,
     hover: {
       backgroundColor: colors.primary[50],
       borderColor: colors.primary[400],
@@ -69,42 +70,47 @@ const variantStyles: Record<NonNullable<ButtonProps['variant']>, VariantStyle> =
     },
   },
   gray: {
-    backgroundColor: colors.gray[300], // Soul gray400
+    backgroundColor: colors.gray[300], // Soul gray400 (#cccccc)
     color: colors.white,
     border: 'none',
     hover: {
       backgroundColor: colors.gray[400],
     },
   },
-  delete: {
-    backgroundColor: colors.white,
-    color: colors.secondary[500], // Soul sub100
-    border: `1px solid ${colors.gray[200]}`,
+  sub: {
+    backgroundColor: colors.primary[300], // Soul main100
+    color: colors.white,
+    border: 'none',
     hover: {
-      backgroundColor: colors.gray[100],
-      borderColor: colors.gray[300],
+      backgroundColor: colors.primary[400],
+    },
+    disabled: {
+      backgroundColor: colors.gray[300],
     },
   },
 };
 
 const sizeStyles: Record<NonNullable<ButtonProps['size']>, SizeStyle> = {
   sm: {
-    height: '40px',
-    padding: `0 ${spacing[4]}`,
-    fontSize: fontSize.base, // 14px (Soul 기준)
-    fontWeight: fontWeight.semibold,
-  },
-  md: {
-    height: '48px',
-    padding: `0 ${spacing[6]}`,
-    fontSize: fontSize.lg, // 18px
-    fontWeight: fontWeight.bold,
-  },
-  lg: {
     height: '56px',
     padding: `0 ${spacing[8]}`,
-    fontSize: fontSize.xl, // 20px
+    fontSize: fontSize['2xl'], // 24px
     fontWeight: fontWeight.bold,
+    fontFamily: fontFamily.sans, // Pretendard
+  },
+  md: {
+    height: '80px', // Soul 기본 버튼 높이
+    padding: `0 ${spacing[8]}`,
+    fontSize: fontSize['3xl'], // 28px
+    fontWeight: fontWeight.normal, // Tmoney는 normal weight 사용
+    fontFamily: fontFamily.tmoney, // Tmoney 폰트
+  },
+  lg: {
+    height: '72px', // Soul 서브 버튼 높이
+    padding: `0 ${spacing[8]}`,
+    fontSize: fontSize['2xl'], // 24px
+    fontWeight: fontWeight.bold,
+    fontFamily: fontFamily.sans, // Pretendard Bold
   },
 };
 
@@ -171,6 +177,7 @@ export const Button: React.FC<ButtonProps> = ({
     padding: sizeStyle.padding,
     fontSize: sizeStyle.fontSize,
     fontWeight: sizeStyle.fontWeight,
+    fontFamily: sizeStyle.fontFamily, // Soul: Tmoney for md, Pretendard for others
     backgroundColor: isDisabled && variantStyle.disabled
       ? variantStyle.disabled.backgroundColor
       : variantStyle.backgroundColor,
@@ -178,12 +185,12 @@ export const Button: React.FC<ButtonProps> = ({
       ? variantStyle.disabled.color
       : variantStyle.color,
     border: variantStyle.border,
-    borderRadius: borderRadius['2xl'], // Soul: 1rem (16px)
+    borderRadius: borderRadius['4xl'], // Soul: 2rem (32px) - 큰 곡선
     cursor: isDisabled ? 'not-allowed' : 'pointer',
-    transition: transitions.base, // 0.2s ease
-    fontFamily: 'inherit',
+    transition: `background-color ${transitions.slow}, border-color ${transitions.slow}`, // Soul: 0.5s transition
     userSelect: 'none',
     WebkitUserSelect: 'none',
+    lineHeight: 1, // Soul: line-height 1 for buttons
     ...style,
   };
 

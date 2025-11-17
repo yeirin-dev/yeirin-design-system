@@ -1,5 +1,5 @@
 import React from 'react';
-import { colors, spacing } from '@yeirin/tokens';
+import { colors, spacing, fontSize, fontWeight, fontFamily } from '@yeirin/tokens';
 
 export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
   id: string;
@@ -7,6 +7,7 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   checked?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   disabled?: boolean;
+  required?: boolean; // Soul: sub prop for "필수" indicator
 }
 
 export const Checkbox: React.FC<CheckboxProps> = ({
@@ -15,6 +16,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   checked = false,
   onChange,
   disabled = false,
+  required = false,
   style,
   ...props
 }) => {
@@ -23,19 +25,20 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   };
 
   const containerStyle: React.CSSProperties = {
-    display: 'inline-flex',
+    display: 'flex',
     alignItems: 'center',
-    gap: spacing[2],
+    gap: spacing[8], // Soul: 4rem (32px)
+    height: '100%',
+    flex: '1 1',
     userSelect: 'none',
     cursor: disabled ? 'not-allowed' : 'pointer',
-    opacity: disabled ? 0.6 : 1,
     ...style,
   };
 
   const checkboxContainerStyle: React.CSSProperties = {
     position: 'relative',
-    width: '24px',
-    height: '24px',
+    width: spacing[8], // Soul: 4rem (32px)
+    height: spacing[8], // Soul: 4rem (32px)
     flexShrink: 0,
   };
 
@@ -54,78 +57,74 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   const labelStyle: React.CSSProperties = {
     position: 'relative',
     display: 'block',
-    width: '24px',
-    height: '24px',
+    width: spacing[8], // Soul: 4rem (32px)
+    height: spacing[8], // Soul: 4rem (32px)
     cursor: disabled ? 'not-allowed' : 'pointer',
   };
 
-  const uncheckedIconStyle: React.CSSProperties = {
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    width: '24px',
-    height: '24px',
-    borderRadius: '6px',
-    border: `2px solid ${colors.gray[300]}`,
-    backgroundColor: colors.white,
-    transition: 'all 0.2s ease',
-  };
-
-  const checkedIconStyle: React.CSSProperties = {
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    width: '24px',
-    height: '24px',
-    borderRadius: '6px',
-    backgroundColor: colors.primary[300],
-    border: `2px solid ${colors.primary[300]}`,
-    opacity: checked ? 1 : 0,
-    transition: 'all 0.2s ease',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  };
-
-  const checkmarkStyle: React.CSSProperties = {
-    width: '12px',
-    height: '8px',
-    borderLeft: `2px solid ${colors.white}`,
-    borderBottom: `2px solid ${colors.white}`,
-    transform: 'rotate(-45deg) translateY(-1px)',
-  };
+  // Soul: SVG checkmark icon that changes stroke color
+  const CheckIcon = () => (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{
+        position: 'absolute',
+        left: 0,
+        top: 0,
+      }}
+    >
+      <path
+        d="M8 16L14 22L24 10"
+        stroke={checked ? colors.primary[300] : colors.gray[300]} // Soul: main100 when checked
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        style={{
+          transition: 'stroke 0.2s ease',
+        }}
+      />
+    </svg>
+  );
 
   const textLabelStyle: React.CSSProperties = {
-    fontSize: '14px',
+    fontSize: fontSize['3xl'], // Soul: pb(28) = 28px
+    fontWeight: fontWeight.bold, // Soul: pb (Pretendard Bold)
+    fontFamily: fontFamily.sans,
     color: colors.gray[700],
     cursor: disabled ? 'not-allowed' : 'pointer',
+    opacity: checked ? 1 : 0.5, // Soul: opacity changes based on checked state
+    transition: 'opacity 0.2s ease',
+    lineHeight: 1,
   };
 
   return (
     <div style={containerStyle}>
-      <div style={checkboxContainerStyle}>
-        <input
-          type="checkbox"
-          id={id}
-          name={id}
-          checked={checked}
-          onChange={onChange}
-          disabled={disabled}
-          onClick={stopPropagation}
-          style={inputStyle}
-          {...props}
-        />
-        <label htmlFor={id} style={labelStyle}>
-          <div style={uncheckedIconStyle} />
-          <div style={checkedIconStyle}>
-            <div style={checkmarkStyle} />
-          </div>
-        </label>
-      </div>
+      <input
+        type="checkbox"
+        id={id}
+        name={id}
+        checked={checked}
+        onChange={onChange}
+        disabled={disabled}
+        onClick={stopPropagation}
+        style={inputStyle}
+        {...props}
+      />
+      <label htmlFor={id} style={labelStyle}>
+        <CheckIcon />
+      </label>
       {label && (
-        <label htmlFor={id} style={textLabelStyle}>
+        <span style={textLabelStyle}>
           {label}
-        </label>
+          {required && (
+            <span style={{ color: colors.secondary[500], fontSize: fontSize['2xl'] }}>
+              {' (필수)'}
+            </span>
+          )}
+        </span>
       )}
     </div>
   );
